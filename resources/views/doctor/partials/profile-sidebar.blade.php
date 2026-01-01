@@ -1,13 +1,9 @@
 @php
     $user = auth()->user();
 
-    $doctorProfile = \App\Models\DoctorProfile::with('speciality')
-        ->where('user_id', $user->id)
-        ->first();
+    $doctorProfile = \App\Models\DoctorProfile::with('speciality')->where('user_id', $user->id)->first();
 
-    $avatar = $user->avatar
-        ? asset($user->avatar)
-        : asset('main_assets/img/doctors-dashboard/doctor-profile-img.jpg');
+    $avatar = $user->avatar ? asset($user->avatar) : asset('main_assets/img/doctors-dashboard/doctor-profile-img.jpg');
 
     $speciality = $doctorProfile?->speciality?->name ?? 'Not Set';
 @endphp
@@ -83,8 +79,8 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
+                <li class="{{ request()->routeIs('doctor.availability') ? 'active' : '' }}">
+                    <a href="{{ route('doctor.availability') }}">
                         <i class="isax isax-calendar-tick"></i>
                         <span>Available Timings</span>
                     </a>
@@ -165,7 +161,8 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="isax isax-logout"></i>
                         <span>Logout</span>
                     </a>

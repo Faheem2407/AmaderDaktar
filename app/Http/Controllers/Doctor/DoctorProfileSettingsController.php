@@ -14,27 +14,21 @@ class DoctorProfileSettingsController extends Controller
     {
         $user = Auth::user();
 
-        $doctorProfile = DoctorProfile::with('speciality')
-            ->where('user_id', $user->id)
-            ->first();
+        $doctorProfile = DoctorProfile::with('speciality')->where('user_id', $user->id)->first();
 
         $specialities = Speciality::where('status', 'active')->get();
 
-        return view('doctor.profile-settings', compact(
-            'user',
-            'doctorProfile',
-            'specialities'
-        ));
+        return view('doctor.profile-settings', compact('user', 'doctorProfile', 'specialities'));
     }
 
     public function update(Request $request)
     {
         $request->validate([
-            'first_name'    => 'required|string|max:255',
-            'last_name'     => 'required|string|max:255',
-            'phone'         => 'required|string|unique:users,phone,' . auth()->id(),
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|string|unique:users,phone,' . auth()->id(),
             'speciality_id' => 'required|exists:specialities,id',
-            'photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
 
         $user = auth()->user();
@@ -46,7 +40,7 @@ class DoctorProfileSettingsController extends Controller
             $user->avatar = storeFile($request->file('photo'), 'doctors');
         }
 
-        $user->name  = $request->first_name . ' ' . $request->last_name;
+        $user->name = $request->first_name . ' ' . $request->last_name;
         $user->phone = $request->phone;
         $user->save();
 
@@ -54,7 +48,7 @@ class DoctorProfileSettingsController extends Controller
             ['user_id' => $user->id],
             [
                 'speciality_id' => $request->speciality_id,
-            ]
+            ],
         );
 
         return back()->with('success', 'Profile updated successfully');

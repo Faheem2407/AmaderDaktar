@@ -9,15 +9,7 @@ class DoctorProfile extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'speciality_id',
-        'bmdc_no',
-        'medical_college',
-        'session',
-        'post_graduation',
-        'photo',
-    ];
+    protected $fillable = ['user_id', 'speciality_id', 'bmdc_no', 'medical_college', 'session', 'post_graduation', 'photo', 'default_fee', 'is_available'];
 
     public function user()
     {
