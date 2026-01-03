@@ -38,20 +38,6 @@
     </div>
     <!-- /Profile Widget -->
 
-    <!-- Availability -->
-    <div class="doctor-available-head">
-        <div class="input-block input-block-new">
-            <label class="form-label">
-                Availability <span class="text-danger">*</span>
-            </label>
-            <select class="form-control">
-                <option>I am Available Now</option>
-                <option>Not Available</option>
-            </select>
-        </div>
-    </div>
-    <!-- /Availability -->
-
     <!-- Dashboard Menu -->
     <div class="dashboard-widget">
         <nav class="dashboard-menu">

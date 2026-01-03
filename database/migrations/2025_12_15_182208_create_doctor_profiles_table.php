@@ -16,6 +16,9 @@ return new class extends Migration {
             $table->string('session')->nullable();
             $table->string('post_graduation')->nullable();
             $table->string('photo')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('years_of_experience');
+            $table->string('total_awards');
             $table->decimal('default_fee', 10, 2)->default(0);
             $table->boolean('is_available')->default(true);
             $table->timestamps();

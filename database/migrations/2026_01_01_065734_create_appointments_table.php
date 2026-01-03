@@ -16,13 +16,15 @@ return new class extends Migration {
             $table->date('appointment_date');
             $table->time('start_time');
             $table->time('end_time');
-            $table->enum('status', ['pending', 'confirmed', 'completed', 'cancelled', 'no_show'])->default('pending');
+            $table->enum('status', ['pending','confirmed','completed','cancelled','no_show'])->default('pending');
             $table->text('reason')->nullable();
             $table->text('notes')->nullable();
             $table->decimal('fee', 10, 2);
-            $table->enum('payment_status', ['pending', 'paid', 'refunded'])->default('pending');
+            $table->enum('payment_status', ['pending','paid','refunded'])->default('pending');
+            $table->enum('type', ['clinic_visit', 'video_call', 'audio_call'])->default('clinic_visit')->after('appointment_date');
             $table->string('payment_method')->nullable();
             $table->timestamps();
+            $table->softDeletes(); 
         });
     }
 

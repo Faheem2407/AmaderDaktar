@@ -49,7 +49,7 @@
                     </div>
                     
                     <div class="col-lg-8 col-xl-9">
-                        <nav class="settings-tab mb-1">
+                        {{-- <nav class="settings-tab mb-1">
                             <ul class="nav nav-tabs-bottom" role="tablist">
                                  <li class="nav-item" role="presentation">
                                     <a class="nav-link active" href="#">Profile</a>
@@ -64,7 +64,7 @@
                                      <a class="nav-link" href="#">Delete Account</a>
                                  </li>
                             </ul>
-                        </nav>
+                        </nav> --}}
                         <div class="card">
                             <div class="card-body">
                                 <div class="border-bottom pb-3 mb-3">

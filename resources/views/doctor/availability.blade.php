@@ -413,36 +413,52 @@
                 });
             });
 
-            // Add Slot form submit
-            $('#add-slot-form').submit(function(e) {
-                e.preventDefault();
-                const day = $('#slot-day').val();
-                const submitBtn = $('#submit-slot-btn');
-                const originalText = submitBtn.html();
+$('#add-slot-form').submit(function(e) {
+    e.preventDefault();
+    const day = $('#slot-day').val();
+    const submitBtn = $('#submit-slot-btn');
+    const originalText = submitBtn.html();
 
-                submitBtn.prop('disabled', true).html(
-                    '<i class="fa-solid fa-spinner fa-spin me-2"></i>Adding...');
+    // Collect form data as an array of one slot (you can extend this for multiple slots)
+    const slotData = [{
+        start_time: $('input[name="start_time"]').val(),
+        end_time: $('input[name="end_time"]').val(),
+        duration: $('input[name="duration"]').val(),
+        interval: $('input[name="interval"]').val(),
+        max_patients: $('input[name="max_patients"]').val(),
+        appointment_fee: $('input[name="appointment_fee"]').val(),
+    }];
 
-                $.post("{{ route('doctor.availability.store') }}", $(this).serialize())
-                    .done(function(res) {
-                        if (res.success) {
-                            toastr.success(res.message);
-                            $('#' + day + '-slots').html(res.html || '');
-                            addSlotModal.hide();
-                        } else {
-                            toastr.error(res.message || 'Failed to add slot');
-                        }
-                    })
-                    .fail(function(xhr) {
-                        let msg = xhr.responseJSON?.errors ? Object.values(xhr.responseJSON.errors)[0][
-                            0
-                        ] : 'Failed to add slot';
-                        toastr.error(msg);
-                    })
-                    .always(function() {
-                        submitBtn.prop('disabled', false).html(originalText);
-                    });
-            });
+    submitBtn.prop('disabled', true).html(
+        '<i class="fa-solid fa-spinner fa-spin me-2"></i>Adding...'
+    );
+
+    $.ajax({
+        url: "{{ route('doctor.availability.store') }}",
+        type: 'POST',
+        data: {
+            day: day,
+            slots: slotData,
+        },
+        success: function(res) {
+            if (res.success) {
+                toastr.success(res.message);
+                $('#' + day + '-slots').html(res.html || '');
+                addSlotModal.hide();
+            } else {
+                toastr.error(res.message || 'Failed to add slot');
+            }
+        },
+        error: function(xhr) {
+            let msg = xhr.responseJSON?.errors ? Object.values(xhr.responseJSON.errors)[0][0] : 'Failed to add slot';
+            toastr.error(msg);
+        },
+        complete: function() {
+            submitBtn.prop('disabled', false).html(originalText);
+        }
+    });
+});
+
         });
     </script>
     <!-- /Script Content -->

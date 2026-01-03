@@ -38,8 +38,8 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="{{ request()->routeIs('patient.appointments.index') ? 'active' : '' }}">
+                    <a href="{{ route('patient.appointments.index') }}">
                         <i class="isax isax-calendar-1"></i>
                         <span>My Appointments</span>
                     </a>
