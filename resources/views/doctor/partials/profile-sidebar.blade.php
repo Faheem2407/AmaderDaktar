@@ -65,8 +65,8 @@
                     </a>
                 </li>
 
-                <li class="{{ request()->routeIs('doctor.availability') ? 'active' : '' }}">
-                    <a href="{{ route('doctor.availability') }}">
+                <li class="{{ request()->routeIs('doctor.availability.index') ? 'active' : '' }}">
+                    <a href="{{ route('doctor.availability.index') }}">
                         <i class="isax isax-calendar-tick"></i>
                         <span>Available Timings</span>
                     </a>

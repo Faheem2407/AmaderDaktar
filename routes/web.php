@@ -54,27 +54,6 @@ Route::middleware('auth')->group(function () {
         ->name('checkout.store');
 });
 
-Route::middleware(['auth'])->prefix('doctor')->name('doctor.')->group(function () {
-
-    // View available slots page
-    Route::get('/available-slots', [DoctorAvailabilityController::class, 'availability'])
-        ->name('availability');
-
-    // Store new slots (AJAX)
-    Route::post('/available-slots/store', [DoctorAvailabilityController::class, 'store'])
-        ->name('availability.store');
-
-    // Delete all slots for a specific day (AJAX)
-    Route::delete('/available-slots/delete-all-day', [DoctorAvailabilityController::class, 'deleteAllDay'])
-        ->name('availability.deleteAllDay');
-
-    // Update availability status (AJAX)
-    Route::post('/available-slots/update-status', [DoctorAvailabilityController::class, 'updateAvailabilityStatus'])
-        ->name('availability.updateStatus');
-});
-
-
-
 
 
 // Admin Auth Routes start
@@ -256,11 +235,11 @@ Route::middleware(['auth'])
         Route::get('/profile-settings', [DoctorProfileSettingsController::class, 'index'])->name('profile-settings');
         Route::put('/profile-settings', [DoctorProfileSettingsController::class, 'update'])->name('profile-settings.update');
 
-        // Route::get('/availability', [DoctorAvailabilityController::class, 'availability'])->name('availability.index');
-        // Route::post('/availability', [DoctorAvailabilityController::class, 'store'])->name('availability.store');
-        // Route::delete('/availability/delete-all-day', [DoctorAvailabilityController::class, 'deleteAllDay'])->name('availability.delete-all-day');
-        // Route::get('/availability/day-slots', [DoctorAvailabilityController::class, 'getDaySlots'])->name('availability.day-slots');
-        // Route::post('/availability/update-status', [DoctorAvailabilityController::class, 'updateAvailabilityStatus'])->name('availability.update-status');
+        Route::get('/availability', [DoctorAvailabilityController::class, 'availability'])->name('availability.index');
+        Route::post('/availability', [DoctorAvailabilityController::class, 'store'])->name('availability.store');
+        Route::delete('/availability/delete-all-day', [DoctorAvailabilityController::class, 'deleteAllDay'])->name('availability.delete-all-day');
+        Route::get('/availability/day-slots', [DoctorAvailabilityController::class, 'getDaySlots'])->name('availability.day-slots');
+        Route::post('/availability/update-status', [DoctorAvailabilityController::class, 'updateAvailabilityStatus'])->name('availability.update-status');
     });
 
 /*

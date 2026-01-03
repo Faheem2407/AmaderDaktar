@@ -117,7 +117,7 @@
                             </div>
 
                             <div class="doctors-body">
-                                <h4>Dr. {{ $doctor->name }}</h4>
+                                <h4>{{ $doctor->name }}</h4>
                                 <p>{{ $profile?->speciality?->name ?? 'Specialist Doctor' }}</p>
 
                                 <div class="location d-flex">
